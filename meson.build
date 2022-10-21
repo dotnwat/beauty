@@ -8,7 +8,9 @@ project('beauty', 'cpp',
 
 subdir('src/beauty')
 
-beauty_dep = library('beauty',
+includes = include_directories(['include', 'src'])
+
+libbeauty = library('beauty',
     'src/acceptor.cpp',
     'src/application.cpp',
     'src/attributes.cpp',
@@ -23,4 +25,8 @@ beauty_dep = library('beauty',
     'src/url.cpp',
     'src/utils.cpp',
     version_h,
-    include_directories: ['include', 'src'])
+    include_directories: includes)
+
+beauty_dep = declare_dependency(
+  link_with: libbeauty,
+  include_directories: [includes])
