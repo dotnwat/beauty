@@ -6,13 +6,9 @@ project('beauty', 'cpp',
     'warning_level=1',
     'default_library=shared'])
 
-version_h = configure_file(
-  input: 'src/version.hpp.in',
-  output: 'version.hpp',
-  configuration: {'VERSION': meson.project_version()},
-  format: 'cmake')
+subdir('src/beauty')
 
-beauty_dep = library('beaty',
+beauty_dep = library('beauty',
     'src/acceptor.cpp',
     'src/application.cpp',
     'src/attributes.cpp',
@@ -27,10 +23,4 @@ beauty_dep = library('beaty',
     'src/url.cpp',
     'src/utils.cpp',
     version_h,
-    include_directories: 'include')
-
-#    find_package(Boost REQUIRED)
-#    if (BEAUTY_ENABLE_OPENSSL)
-#        find_package(OpenSSL REQUIRED)
-#        add_library(openssl::openssl ALIAS OpenSSL::SSL)
-#    endif()
+    include_directories: ['include', 'src'])
